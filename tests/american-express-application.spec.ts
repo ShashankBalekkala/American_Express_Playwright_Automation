@@ -10,25 +10,26 @@ test.describe('FR Credit Card Application Flow', () => {
 
     await page.goto(process.env.BASEURL!);
 
-    //Home Page .
+    // Landed to Home Page.
     await homePage.clickOnAcceptCookiesButtonIfVisible()
     await homePage.devenirClientButton.click();
+    // Step 1 - click on “Cartes American Express” button in homepage
     await homePage.cartesAmericanExpressButton.waitFor({ state: 'attached' });
     await expect(homePage.cartesAmericanExpressButton).toBeEnabled();
     await homePage.cartesAmericanExpressButton.click();
     await waitForAllCardsPageLoad;
     // All Cards Page . 
+    // Step 2 : click on “En Savior Plus” button  Under “Cartes Gold American Express”
     await allCardsPage.enSavoirPlusBtnForCard('gold').waitFor({ state: "visible" })
     await homePage.clickOnAcceptCookiesButtonIfVisible()
-
     await allCardsPage.enSavoirPlusBtnForCard('gold').scrollIntoViewIfNeeded();
     await allCardsPage.enSavoirPlusBtnForCard('gold').click()
-
     // Description Page.
+    // Step 3 : Demandez Votre Carte Button
     await descriptionPage.demandezVotreCarteBtn.waitFor({ state: "visible" })
-
     await descriptionPage.demandezVotreCarteBtn.click();
     //  User Details Page .
+    // Fill the Basic details and click on “Sauvegarder et Continuer”
     await expect(userDetailsPage.journeyForm).toBeVisible({ timeout: 10000 })
     await expect(page.url()).toContain('amex-cardshop-details-apply-GoldCardAmericanExpress');
     await homePage.clickOnAcceptCookiesButtonIfVisible()
